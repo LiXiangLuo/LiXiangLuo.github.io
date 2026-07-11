@@ -1,29 +1,12 @@
-<!--
-版本号：V2.6.0
-版本更新说明：
-1. 完整继承 V2.5.0 全部页面布局、样式、渲染逻辑、进度计算、本地持久化、XLSX导入导出功能，原有业务代码不作删减与修改。
-2. 新增核心能力：一级任务的计划完成日期、实际完成日期自动读取所属二级任务里的最晚合法日期进行回填。
-   - 新建一级任务默认开启自动同步；手动编辑一级对应日期后自动锁定，不再跟随二级变更。
-   - 两个同步标记字段autoPlanDate、autoActualDate相互独立，互不干扰。
-3. 针对性规避三大高危风险，杜绝线上故障：
-   ① 新增300ms任务防抖执行锁，防止连续编辑二级任务造成接口重复更新、递归死循环；系统自动回填的一级任务更新不再向下递归刷新子任务。
-   ② 独立管控两项自动同步标识，避免字段锁定状态错乱；历史存量一级任务默认标记为手动锁定，原有日期不会被强制覆盖。
-   ③ 封装统一日期校验工具，自动过滤空值、0000-00-00、非法文本脏数据，无有效二级日期时一级字段置空，规避Invalid Date渲染异常。
-4. 本次仅处理高危BUG风险，批量合并刷新、页面加载时序优化、并发锁、视觉样式区分等中低风险优化暂缓迭代。
-5. 新增autoPlanDate、autoActualDate仅作为前端业务控制字段，不会导出至Excel文件。
-6. 系统原有遗留缺陷本次不进行修复。
--->
-<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>里程碑两级任务管理系统 V2.6.0｜二级任务日期自动聚合回填一级任务</title>
+  <!-- 关键移动端视口配置，禁止缩放、适配真实设备宽度 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>里程碑两级任务管理系统 V2.6.2｜云端JSON同步增量版本</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- 引入SheetJS用于解析XLSX/XLS/CSV，同时用于生成XLSX导出文件 -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script>
-    // 全局tailwind自定义配色注入
     tailwind.config = {
       theme: {
         extend: {
@@ -36,49 +19,40 @@
     }
   </script>
   <style>
-    /* 里程碑横向时间轴 */
+    /* ========== 原版V2.6.1全部样式完整保留，无删减无修改 ========== */
     .timeline-wrap{display:flex;align-items:center;overflow-x:auto;padding:10px 0;gap:0}
     .timeline-item{display:flex;align-items:center;flex-shrink:0}
     .milestone-card{width:220px;border:1px solid #d1d5db;border-radius:6px;padding:14px;background:#fff;text-align:center;cursor:pointer;color:#000;}
     .milestone-card.active{border:2px solid #3662EC;background-color:rgba(54, 98, 236, 0.08);}
     .timeline-line{width:30px;height:2px;background:#9ca3af;flex-shrink:0}
     .status-dot{width:18px;height:18px;border-radius:50%;margin:0 auto 6px;box-sizing:border-box}
-    /* V2.3.8 修改圆点样式：进行中改为实心主色，其余保留空心边框 */
     .status-finish{background:transparent;border:2px solid #6b7280;}
     .status-doing{background:#3662EC;border:none;}
     .status-wait{background:transparent;border:2px solid #9ca3af}
 
-    /* 任务折叠面板样式 */
     .collapse-item{border:1px solid #e5e7eb;border-radius:6px;margin-bottom:10px;background:#fff}
-    /* 功能模块头部专属样式 V2.3.7新增 */
     .collapse-header.module-header{
       padding:16px 16px;
       background:rgba(54, 98, 236, 0.06);
       border-top:3px solid #3662EC;
       transition: background-color 0.2s ease;
     }
-    /* 模块头部hover效果，本次唯一附加交互样式 */
     .collapse-header.module-header:hover{
       background:rgba(54, 98, 236, 0.12);
     }
-    /* 一级任务头部沿用原有基础内边距与白底 */
     .collapse-header{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none;gap:12px;flex-wrap:wrap}
     .collapse-body{padding:0 16px;max-height:0;overflow:hidden;transition:max-height 0.3s ease}
     .collapse-body.open{padding:12px 16px;max-height:2000px}
     .progress-bar-bg{width:120px;height:8px;background:#e5e7eb;border-radius:4px;overflow:hidden}
     .progress-bar-inner{height:100%;background:#3662EC;border-radius:4px}
-    /* 标题输入框样式 */
     .title-input{border:1px solid transparent;outline:none;background:transparent;font-weight:500;color:#000;}
-    /* 模块名称输入框加粗 V2.3.7优化项 */
     .module-header .title-input{
       font-weight:600;
       font-size:1rem;
     }
     .title-input:focus{border:1px solid #3662EC;border-radius:4px;padding:0 4px;}
-    /* 弹窗遮罩 */
     .modal-mask{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:none;align-items:center;justify-content:center;z:50}
 
-    /* ========== 顶部实心按钮（原样保留，不做任何修改） ========== */
     .btn-primary{background:#3662EC;color:#fff;}
     .btn-primary:hover{background:#2A3C74;}
     .btn-secondary{background:#2A3C74;color:#fff;}
@@ -88,7 +62,6 @@
     .btn-danger{background:#6b7280;color:#fff;}
     .btn-danger:hover{background:#374151;}
 
-    /* ========== 其余区域专用线框按钮样式（弹窗、任务面板内按钮统一使用） ========== */
     .btn-outline-primary{
       border:1px solid #3662EC;
       color:#3662EC;
@@ -122,100 +95,182 @@
       background:#f3f4f6;
     }
 
-    /* V2.4.0新增：实际日期输入文字配色样式，计划输入框沿用浏览器原生文字颜色 */
     .date-real {
         color: #235796;
     }
+
+    /* ========== V2.6.1 新增：移动端适配核心样式【不影响PC端展示效果】 ========== */
+    * {
+      box-sizing: border-box !important;
+    }
+    body {
+      overflow-x: hidden !important;
+    }
+
+    @media screen and (max-width: 768px) {
+      body {
+        padding: 8px !important;
+      }
+      .milestone-card {
+        width: 160px !important;
+      }
+      /* 所有头部自动垂直换行，不再横向挤压 */
+      .collapse-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+      }
+      /* 二级任务行完全自适应、自动换行、无溢出 */
+      .collapse-body .flex {
+        flex-wrap: wrap !important;
+      }
+      /* 输入框、日期框自动缩窄适配手机 */
+      input[type="date"],
+      input[type="number"],
+      .title-input {
+        max-width: 100% !important;
+        width: auto !important;
+      }
+      /* 进度条自适应缩小 */
+      .progress-bar-bg {
+        width: 90px !important;
+      }
+      /* 按钮缩小适配移动端触屏操作 */
+      button {
+        font-size: 12px !important;
+        padding: 4px 8px !important;
+      }
+      /* 杜绝所有容器横向溢出 */
+      #taskContainer,
+      .collapse-body,
+      .collapse-item {
+        overflow-x: hidden !important;
+        max-width: 100% !important;
+      }
+   }
   </style>
 </head>
 <body class="bg-gray-50 p-4 md:p-6">
 <div class="max-w-7xl mx-auto">
-  <!-- 顶部里程碑时间轴区域【此处全部实心按钮保持原版样式不变】 -->
   <section class="bg-white rounded-lg shadow p-4 mb-6">
     <div class="flex justify-between items-center mb-3 flex-wrap gap-2">
-      <h2 class="text-lg font-semibold text-black">一、项目里程碑时间轴</h2>
-      <div class="flex gap-3 flex-wrap">
-        <button onclick="exportAllData()" class="px-3 py-1 btn-primary rounded">导出Excel表格</button>
-        <button onclick="openImportModal()" class="px-3 py-1 btn-secondary rounded">导入表格文件</button>
-        <button onclick="openMilestoneManage()" class="px-3 py-1 btn-gray rounded">管理选中里程碑</button>
-        <button onclick="addMilestone()" class="px-3 py-1 btn-primary rounded">+新增里程碑</button>
-      </div>
-    </div>
-    <div id="milestoneWrap" class="timeline-wrap"></div>
-  </section>
+<h2 class="text-lg font-semibold text-black">一、项目里程碑</h2>
+<div class="flex gap-3 flex-wrap">
+<button onclick="exportAllData()" class="px-3 py-1 btn-primary rounded">导出全部数据</button>
+<button onclick="downloadCloudJson()" class="px-3 py-1 btn-outline-primary rounded">导出发布JSON</button>
+<button onclick="openImportModal()" class="px-3 py-1 btn-secondary rounded">导入表格</button>
+<button onclick="openMilestoneManage()" class="px-3 py-1 btn-gray rounded">管理选中里程碑</button>
+<button onclick="addMilestone()" class="px-3 py-1 btn-primary rounded">新增里程碑</button>
+</div>
+</div>
+<div id="milestoneWrap" class="timeline-wrap"></div>
+</section>
 
-  <!-- 下方绑定当前选中里程碑的任务管理区域（内部按钮全部替换为线框样式） -->
-  <section class="bg-white rounded-lg shadow p-4">
-    <div class="flex justify-between items-center mb-4">
+ <section class="bg-white rounded-lg shadow p-4">
+<div class="flex justify-between items-center mb-4 flex-wrap gap-2">
       <h2 class="text-lg font-semibold text-black">二、功能模块与任务管理（当前绑定里程碑：<span id="bindMilestoneName" class="text-primary">未选中任何里程碑</span>）</h2>
       <button id="addModuleBtn" onclick="addModule()" disabled class="px-3 py-1 btn-outline-secondary rounded disabled:border-gray-300 disabled:text-gray-400 disabled:bg-gray-50 disabled:cursor-not-allowed">新增功能模块</button>
-    </div>
-    <div id="taskContainer">
-      <div class="py-10 text-center text-gray-400">请点击上方任意里程碑以加载对应任务列表</div>
-    </div>
-  </section>
 </div>
-
-<!-- 里程碑编辑弹窗（弹窗内按钮全部改用线框样式） -->
-<div class="modal-mask" id="milestoneModal">
-  <div class="modal-content w-80 bg-white rounded-lg p-5">
-    <h3 class="font-semibold text-lg mb-4 text-black">里程碑编辑面板</h3>
-    <div class="space-y-3">
-      <div>
-        <label class="text-sm text-gray-600 block mb-1">里程碑名称</label>
-        <input id="editMsName" class="w-full border border-gray-300 rounded px-2 py-2 text-sm text-black focus:border-primary outline-none">
-      </div>
-      <div>
-        <label class="text-sm text-gray-600 block mb-1">计划完成日期</label>
-        <input type="date" id="editMsDate" class="w-full border border-gray-300 rounded px-2 py-2 text-sm text-black focus:border-primary outline-none">
-      </div>
-      <div>
-        <label class="text-sm text-gray-600 block mb-1">里程碑状态</label>
-        <select id="editMsStatus" class="w-full border border-gray-300 rounded px-2 py-2 text-sm text-black focus:border-primary outline-none">
-          <option value="wait">待开始</option>
-          <option value="doing">进行中</option>
-          <option value="finish">已完成</option>
-        </select>
-      </div>
+<div id="taskContainer">
+<div class="py-10 text-center text-gray-400">请点击上方任意里程碑以加载对应任务</div>
     </div>
+  </div>
+
+<!-- 里程碑编辑弹窗 -->
+<div class="modal-mask" id="milestoneModal">
+<div class="modal-content w-80 bg-white rounded-lg p-5">
+   <h3 class="font-semibold text-lg mb-4 text-black">编辑里程碑信息</h3>
+<div class="space-y-3">
+<div>
+       <label class="text-sm text-gray-600 block mb-1">里程碑名称</label>
+       <input id="editMsName" class="w-full border border-gray-300 rounded px-2 py-2 text-sm text-black focus:border-primary outline-none">
+</div>
+<div>
+<label class="text-sm text-gray-600 block mb-1">计划截止日期</label>
+<input type="date" id="editMsDate" class="w-full border border-gray-300 rounded px-2 py-2 text-sm text-black focus:border-primary outline-none">
+</div>
+<div>
+<label class="text-sm text-gray-600 block mb-1">当前状态</label>
+<select id="editMsStatus" class="w-full border border-gray-300 rounded px-2 py-2 text-sm text-black focus:border-primary outline-none">
+<option value="wait">待开始</option>
+<option value="doing">进行中</option>
+<option value="finish">已完成</option>
+</select>
+      </div>
     <div class="flex justify-between mt-5">
       <button onclick="deleteCurrentMilestone()" class="px-3 py-1 btn-outline-danger rounded">删除里程碑</button>
       <div class="flex gap-2">
-        <button onclick="closeModal('milestoneModal')" class="px-3 py-1 btn-outline-gray rounded">取消</button>
-        <button onclick="saveMilestoneEdit()" class="px-3 py-1 btn-outline-primary rounded">保存</button>
-      </div>
-    </div>
-  </div>
+<button onclick="closeModal('milestoneModal')" class="px-3 py-1 btn-outline-gray rounded">取消</button>
+<button onclick="saveMilestoneEdit()" class="px-3 py-1 btn-outline-primary rounded">保存修改</button>
+</div>
+</div>
+ </div>
 </div>
 
-<!-- 文件导入弹窗（弹窗内按钮全部改用线框样式） -->
+<!-- 表格导入弹窗 -->
 <div class="modal-mask" id="importModal">
-  <div class="w-96 bg-white rounded-lg p-5">
-    <h3 class="font-semibold text-lg mb-4 text-black">导入表格文件（支持 *.csv / *.xlsx / *.xls）</h3>
-    <p class="text-sm text-gray-500 mb-3">标准表头：里程碑名称,计划日期,状态,功能模块,一级任务,二级任务,任务计划日期,任务实际日期,任务进度</p>
-    <input type="file" id="importFile" accept=".csv,.xlsx,.xls" class="mb-3 w-full border border-gray-300 rounded p-2">
-    <div class="flex gap-3 mb-4">
-      <label class="flex items-center gap-1 text-black">
-        <input type="radio" name="importMode" value="append" checked>追加导入
-      </label>
-      <label class="flex items-center gap-1 text-black">
-        <input type="radio" name="importMode" value="cover">覆盖原有全部数据
-      </label>
-    </div>
-    <div class="flex justify-end gap-2">
-      <button onclick="closeModal('importModal')" class="px-3 py-1 btn-outline-gray rounded">取消</button>
-      <button onclick="handleImportFile()" class="px-3 py-1 btn-outline-primary rounded">确认导入</button>
+<div class="w-96 bg-white rounded-lg p-5">
+<h3 class="font-semibold text-lg mb-4 text-black">导入表格文件（支持 *.csv / *.xlsx / *.xls）</h3>
+   <p class="text-sm text-gray-500 mb-3">标准表头：里程碑名称,计划日期,状态,功能模块,一级任务,二级任务,任务计划日期,任务实际日期,任务进度</p>
+<input type="file" id="importFile" accept=".csv,.xlsx,.xls" class="mb-3 w-full border border-gray-300 rounded p-2">
+<div class="flex gap-3 mb-3">
+<label class="flex items-center gap-1 text-black">
+<input type="radio" name="importMode" value="append" checked>追加导入
+</label>
+<label class="flex items-center gap-1 text-black">
+       <input type="radio" name="importMode" value="cover">覆盖原有全部数据
+</label>
+</div>
+<div class="flex justify-end gap-2">
+<button onclick="closeModal('importModal')" class="px-3 py-1 btn-outline-gray rounded">取消</button>
+<button onclick="handleImportFile()" class="px-3 py-1 btn-outline-primary rounded">确认导入</button>
     </div>
   </div>
 </div>
 
 <script>
+// ===================== V2.6.2 新增配置项：你的仓库JSON直链 =====================
+const JSON_RAW_URL = "https://raw.githubusercontent.com/LiXiangLuo/LiXiangLuo.github.io/main/task-data.json";
+
+// V2.6.2 新增：加载云端线上数据函数
+async function loadRemoteData() {
+  try {
+    const res = await fetch(JSON_RAW_URL);
+    if (!res.ok) throw new Error("线上文件获取失败");
+    const cloudData = await res.json();
+    milestoneList = cloudData;
+    console.log("已加载云端最新数据");
+  } catch (err) {
+    console.warn("读取云端失败，启用本地缓存", err);
+    const local = localStorage.getItem("milestoneData");
+    if(local) milestoneList = JSON.parse(local);
+  }
+  renderAll();
+}
+
+// V2.6.2 新增：导出可直接上传仓库的JSON文件
+function downloadCloudJson() {
+  const jsonStr = JSON.stringify(milestoneList,null,2);
+  const blob = new Blob([jsonStr],{type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "task-data.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// V2.6.2 新增统一渲染入口
+function renderAll(){
+  renderMilestone();
+  renderTaskPanel();
+}
+
 // 全局数据定义
 let milestoneList = JSON.parse(localStorage.getItem("milestoneData")) || [];
 let selectMilestoneId = null;
 let uniqueId = Date.now();
 
-// V2.6.0 新增：全局防抖锁，规避死循环与重复请求
+// V2.6.0 新增：全局防抖锁，规避死循环与重复渲染
 const refreshTaskLock = new Map();
 const LOCK_EXPIRE = 300;
 
@@ -224,58 +279,33 @@ function getUid(){
   return ++uniqueId;
 }
 
-// V2.3.9 新增：单元格内容标准化处理函数，专门解决Date对象导入日期空白问题
+// V2.3.9 新增：单元格内容标准化处理函数
 function formatCellValue(val) {
-    // 判定为日期对象，统一转为 YYYY-MM-DD
     if (val instanceof Date) {
         const year = val.getFullYear();
         const month = String(val.getMonth() + 1).padStart(2, '0');
         const day = String(val.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
     }
-    // 空值返回空字符串
     if (val === null || val === undefined) return "";
-    // 其余内容直接转为字符串
     return String(val).trim();
 }
 
-/*
-数据结构
-milestone:{id,name,planDate,status,progress,moduleList:[]}
-module:{id,name,planFinishDate,actualFinishDate,progress,open:boolean,levelOneTasks:[]}
-levelOneTask:{
-    id,name,planFinishDate,actualFinishDate,progress,open:boolean,levelTwoTasks:[],
-    autoPlanDate:Boolean,   // V2.6.0新增：计划日期是否自动同步下级
-    autoActualDate:Boolean   // V2.6.0新增：实际日期是否自动同步下级
-}
-levelTwoTask:{id,name,planFinishDate,actualFinishDate,progress}
-*/
-
-// V2.6.0 新增高危规避工具：筛选有效日期并获取最晚日期
 function getLatestValidDate(dateList) {
     const validDates = [];
     for(const item of dateList){
         const val = String(item ?? "").trim();
-        // 过滤空字符串与非法默认日期
         if(val === "" || val === "0000-00-00") continue;
-        // 校验标准日期格式
         const reg = /^\d{4}-\d{2}-\d{2}$/;
         if(!reg.test(val)) continue;
         validDates.push(val);
     }
     if(validDates.length === 0) return "";
-    // 从小到大排序取最后一项（最晚日期）
     validDates.sort();
     return validDates.pop();
 }
 
-/**
- * V2.6.0 核心聚合函数
- * @param {number} levelOneId 一级任务ID
- * @param {boolean} isAutoUpdate true=系统自动回填，禁止向下递归刷新子任务
- */
 function aggregateChildTaskDate(levelOneId, isAutoUpdate) {
-    // 防抖锁拦截重复调用
     const now = Date.now();
     if(refreshTaskLock.has(levelOneId)){
         const lastTime = refreshTaskLock.get(levelOneId);
@@ -283,7 +313,6 @@ function aggregateChildTaskDate(levelOneId, isAutoUpdate) {
     }
     refreshTaskLock.set(levelOneId, now);
 
-    // 查找当前选中里程碑、所属模块、目标一级任务
     const ms = milestoneList.find(m=>m.id === selectMilestoneId);
     if(!ms) return;
     let targetOne = null;
@@ -299,17 +328,14 @@ function aggregateChildTaskDate(levelOneId, isAutoUpdate) {
     }
     if(!targetOne) return;
 
-    // 兼容历史存量数据，不存在标记则默认手动锁定
     if(targetOne.autoPlanDate === undefined) targetOne.autoPlanDate = false;
     if(targetOne.autoActualDate === undefined) targetOne.autoActualDate = false;
 
-    // 提取所有二级任务日期
     const planArr = targetOne.levelTwoTasks.map(item=>item.planFinishDate);
     const actualArr = targetOne.levelTwoTasks.map(item=>item.actualFinishDate);
     const latestPlan = getLatestValidDate(planArr);
     const latestActual = getLatestValidDate(actualArr);
 
-    // 根据自动标记决定是否回填
     if(targetOne.autoPlanDate){
         targetOne.planFinishDate = latestPlan;
     }
@@ -318,7 +344,6 @@ function aggregateChildTaskDate(levelOneId, isAutoUpdate) {
     }
 
     saveAllData();
-    // 自动回填场景不再递归刷新下级，阻断死循环
     if(!isAutoUpdate){
         calcLevelOneProgress(targetOne);
         calcModuleProgress(parentModule);
@@ -329,26 +354,19 @@ function aggregateChildTaskDate(levelOneId, isAutoUpdate) {
     renderTaskPanel();
 }
 
-// 持久化保存
 function saveAllData(){
   localStorage.setItem("milestoneData",JSON.stringify(milestoneList));
 }
 
-// 通用关闭弹窗
 function closeModal(modalId){
   document.getElementById(modalId).style.display = "none";
 }
 
-// 打开导入弹窗
 function openImportModal(){
   document.getElementById("importModal").style.display = "flex";
   document.getElementById("importFile").value = "";
 }
 
-/**
- * V2.5.0改动点：导出格式从CSV升级为XLSX，保留原有日期补零、行列遍历逻辑完全不变
- * V2.6.0补充：autoPlanDate、autoActualDate不会导出至表格
- */
 function exportAllData(){
   if(milestoneList.length === 0){
     alert("暂无任何里程碑数据，无法导出");
@@ -356,27 +374,23 @@ function exportAllData(){
   }
   const timestamp = new Date().toISOString().slice(0,10);
   const headers = ["里程碑名称","计划日期","状态","功能模块","一级任务","二级任务","任务计划日期","任务实际日期","任务进度(%)"];
-  // 保留原有完整的行列遍历、日期补零逻辑，生成二维数组数据
   const tableData = [];
   tableData.push(headers);
 
   milestoneList.forEach(ms=>{
     const msPlanDate = formatCellValue(ms.planDate);
-    // 场景1：当前里程碑下没有任何功能模块，直接输出单行里程碑记录
     if(ms.moduleList.length === 0){
       const row = [
         ms.name,msPlanDate,ms.status,
-        "","","","","",""
+        "","","","",""
       ];
       tableData.push(row);
       return;
     }
 
-    // 存在模块，继续向下遍历
     ms.moduleList.forEach(mod=>{
       const modPlan = formatCellValue(mod.planFinishDate);
       const modActual = formatCellValue(mod.actualFinishDate);
-      // 场景2：模块下不存在一级任务
       if(mod.levelOneTasks.length === 0){
         const row = [
           ms.name,msPlanDate,ms.status,
@@ -386,11 +400,9 @@ function exportAllData(){
         return;
       }
 
-      // 存在一级任务，继续向下遍历
       mod.levelOneTasks.forEach(l1=>{
         const l1Plan = formatCellValue(l1.planFinishDate);
         const l1Actual = formatCellValue(l1.actualFinishDate);
-        // 场景3：一级任务下不存在二级任务
         if(l1.levelTwoTasks.length === 0){
           const row = [
             ms.name,msPlanDate,ms.status,
@@ -400,7 +412,6 @@ function exportAllData(){
           return;
         }
 
-        // 场景4：存在完整二级任务，使用原版导出遍历逻辑，日期统一格式化
         l1.levelTwoTasks.forEach(l2=>{
           const l2Plan = formatCellValue(l2.planFinishDate);
           const l2Actual = formatCellValue(l2.actualFinishDate);
@@ -417,11 +428,9 @@ function exportAllData(){
     })
   })
 
-  // V2.5.0新增：使用SheetJS生成XLSX工作簿
   const worksheet = XLSX.utils.aoa_to_sheet(tableData);
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, "任务数据");
-  // 导出XLSX文件
   const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
   const blob = new Blob([excelBuffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
   const url = URL.createObjectURL(blob);
@@ -434,7 +443,6 @@ function exportAllData(){
   URL.revokeObjectURL(url);
 }
 
-// 读取并解析表格文件
 function handleImportFile(){
   const file = document.getElementById("importFile").files[0];
   if(!file){
@@ -448,13 +456,9 @@ function handleImportFile(){
     const workbook = XLSX.read(buffer,{type:"array"});
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
     const jsonData = XLSX.utils.sheet_to_json(sheet,{header:1});
-    // 跳过表头行
     const tableRows = jsonData.slice(1).filter(row=>row.length>0 && row[5]);
-    // 覆盖模式清空原有数据
     if(importMode === "cover") milestoneList = [];
-    // 循环写入数据
     tableRows.forEach(row=>{
-      // V2.3.9：全部单元格值套用格式化函数，自动处理Date日期对象
       const msName = formatCellValue(row[0] || "默认里程碑");
       const msPlan = formatCellValue(row[1] || "");
       const msStatus = ["wait","doing","finish"].includes(formatCellValue(row[2])) ? formatCellValue(row[2]) : "wait";
@@ -465,7 +469,6 @@ function handleImportFile(){
       const l2Actual = formatCellValue(row[7] || "");
       const l2Progress = Math.min(100,Math.max(0,Number(row[8]||0)));
 
-      // 查找或创建里程碑
       let milestone = milestoneList.find(m=>m.name === msName);
       if(!milestone){
         milestone = {
@@ -473,16 +476,13 @@ function handleImportFile(){
         };
         milestoneList.push(milestone);
       }
-      // 查找或创建模块
       let module = milestone.moduleList.find(m=>m.name === modName);
       if(!module){
         module = {id:getUid(),name:modName,planFinishDate:"",actualFinishDate:"",progress:0,open:false,levelOneTasks:[]};
         milestone.moduleList.push(module);
       }
-      // 查找或创建一级任务
       let l1Task = module.levelOneTasks.find(t=>t.name === l1Name);
       if(!l1Task){
-        // V2.6.0 新建一级任务默认开启自动同步
         l1Task = {
             id:getUid(),
             name:l1Name,
@@ -496,13 +496,11 @@ function handleImportFile(){
         };
         module.levelOneTasks.push(l1Task);
       }
-      // 新增二级任务
       l1Task.levelTwoTasks.push({
         id:getUid(),name:l2Name,planFinishDate:l2Plan,actualFinishDate:l2Actual,progress:l2Progress
       })
     })
     saveAllData();
-    // 全局重算全部进度
     milestoneList.forEach(ms=>{
       ms.moduleList.forEach(mod=>calcModuleProgress(mod));
       calcMilestoneProgressByMs(ms);
@@ -515,7 +513,6 @@ function handleImportFile(){
   reader.readAsArrayBuffer(file);
 }
 
-// 指定单个里程碑重算进度
 function calcMilestoneProgressByMs(ms){
   if(ms.moduleList.length === 0){
     ms.progress = 0;
@@ -526,7 +523,6 @@ function calcMilestoneProgressByMs(ms){
   ms.progress = Math.round(sum / ms.moduleList.length);
 }
 
-// ========== 进度递归汇总计算核心方法 ==========
 function calcLevelOneProgress(task){
   if(task.levelTwoTasks.length === 0){
     task.progress = 0;
@@ -560,7 +556,6 @@ function refreshCurrentMilestoneProgress(){
   renderTaskPanel();
 }
 
-// ========== 里程碑基础操作 ==========
 function addMilestone(){
   const newMs = {
     id:getUid(),
@@ -594,10 +589,10 @@ function renderMilestone(){
     if(ms.status === "finish") statusClass = "status-finish";
     if(ms.status === "doing") statusClass = "status-doing";
     itemWrap.innerHTML = `
-      <div class="milestone-card ${selectMilestoneId===ms.id?'active':''}" onclick="selectMilestone(${ms.id})">
-        <div class="status-dot ${statusClass}"></div>
-        <div class="font-medium text-sm mb-2 text-black">${ms.name}</div>
-        <div class="text-xs text-gray-500">计划：${ms.planDate||"未设置日期"}</div>
+     <div class="milestone-card ${selectMilestoneId===ms.id?'active':''}" onclick="selectMilestone(${ms.id})">
+       <div class="status-dot ${statusClass}"></div>
+       <div class="font-medium text-sm mb-2 text-black">${ms.name}</div>
+       <div class="text-xs text-gray-500">计划：${ms.planDate||"未设置日期"}</div>
         <div class="text-xs mt-1">整体进度：${ms.progress}%</div>
       </div>
       ${idx !== milestoneList.length-1 ? '<div class="timeline-line"></div>' : ''}
@@ -639,7 +634,6 @@ function deleteCurrentMilestone(){
   closeModal("milestoneModal");
 }
 
-// ========== 功能模块操作 ==========
 function addModule(){
   const ms = milestoneList.find(m=>m.id === selectMilestoneId);
   const newModule = {
@@ -669,11 +663,9 @@ function toggleModule(moduleId){
   renderTaskPanel();
 }
 
-// ========== 一级任务操作 ==========
 function addLevelOneTask(moduleId){
   const ms = milestoneList.find(m=>m.id===selectMilestoneId);
   const mod = ms.moduleList.find(item=>item.id === moduleId);
-  // V2.6.0 新建一级任务默认开启自动同步
   const newTask = {
     id:getUid(),
     name:"一级主任务",
@@ -705,7 +697,6 @@ function toggleLevelOne(moduleId,taskId){
   renderTaskPanel();
 }
 
-// ========== 二级底层任务操作 ==========
 function addLevelTwoTask(moduleId,oneTaskId){
   const ms = milestoneList.find(m=>m.id===selectMilestoneId);
   const mod = ms.moduleList.find(item=>item.id===moduleId);
@@ -719,7 +710,6 @@ function addLevelTwoTask(moduleId,oneTaskId){
   }
   oneTask.levelTwoTasks.push(newTwoTask);
   refreshCurrentMilestoneProgress();
-  // V2.6.0 新增二级后自动聚合一级日期，isAutoUpdate=true阻断向下递归
   aggregateChildTaskDate(oneTaskId, true);
 }
 
@@ -729,7 +719,6 @@ function deleteLevelTwoTask(moduleId,oneTaskId,twoTaskId){
   const oneTask = mod.levelOneTasks.find(t=>t.id === oneTaskId);
   oneTask.levelTwoTasks = oneTask.levelTwoTasks.filter(item=>item.id !== twoTaskId);
   refreshCurrentMilestoneProgress();
-  // 删除二级任务后自动聚合一级日期
   aggregateChildTaskDate(oneTaskId, true);
 }
 
@@ -744,11 +733,6 @@ function updateTwoProgress(moduleId,oneTaskId,twoTaskId,val){
   refreshCurrentMilestoneProgress();
 }
 
-/**
- * V2.6.0 改造通用字段更新函数
- * 1.手动修改一级计划/实际日期，单独锁定对应自动同步标记
- * 2.修改二级日期后触发一级日期自动聚合
- */
 function updateTaskField(type,moduleId,oneId,twoId,field,value){
   const ms = milestoneList.find(m=>m.id===selectMilestoneId);
   if(type === "module"){
@@ -758,7 +742,6 @@ function updateTaskField(type,moduleId,oneId,twoId,field,value){
     const mod = ms.moduleList.find(item=>item.id===moduleId);
     const task = mod.levelOneTasks.find(t=>t.id===oneId);
     task[field] = value;
-    // 手动编辑一级日期，关闭对应自动同步标识，二者相互独立
     if(field === "planFinishDate"){
         task.autoPlanDate = false;
     }
@@ -770,109 +753,110 @@ function updateTaskField(type,moduleId,oneId,twoId,field,value){
     const task = mod.levelOneTasks.find(t=>t.id===oneId);
     const two = task.levelTwoTasks.find(item=>item.id === twoId);
     two[field] = value;
-    // 修改二级日期，触发上级一级日期聚合
     aggregateChildTaskDate(oneId, true);
   }
   saveAllData();
 }
 
-// ========== 渲染任务面板｜V2.4.0：更新三处日期输入框的前置标签、class、title悬浮提示，其余渲染逻辑完全沿用原版 ==========
 function renderTaskPanel(){
   const container = document.getElementById("taskContainer");
   if(!selectMilestoneId){
-    container.innerHTML = `<div class="py-10 text-center text-gray-400">请点击上方任意里程碑以加载对应任务列表</div>`;
+    container.innerHTML =`<div class="py-10 text-center text-gray-400">请点击上方任意里程碑以加载任务列表</div>`;
     return;
   }
   const ms = milestoneList.find(m=>m.id === selectMilestoneId);
   if(ms.moduleList.length === 0){
-    container.innerHTML = `<div class="py-8 text-center text-gray-400">当前里程碑暂无功能模块，请点击上方【新增功能模块】创建</div>`;
+    container.innerHTML=`<div class="py-8 text-center text-gray-400">当前里程碑暂无功能模块，请点击上方【新增功能模块】</div>`;
     return;
   }
   let html = "";
   ms.moduleList.forEach(mod=>{
-    // 模块头部增加专属class，替换展开收起图标为 ▸ / ▾
     html += `
     <div class="collapse-item">
-      <div class="collapse-header module-header" onclick="toggleModule(${mod.id})">
-        <div class="flex items-center gap-3 flex-wrap">
-          <span>${mod.open ? '▾' : '▸'}</span>
-          <input class="title-input w-52" value="${mod.name}" onclick="event.stopPropagation()" onchange="updateTaskField('module',${mod.id},0,0,'name',this.value)">
-          <div class="progress-bar-bg"><div class="progress-bar-inner" style="width:${mod.progress}%"></div></div>
-          <span class="text-sm text-gray-500">模块进度：${mod.progress}%（自动汇总）</span>
-          <div class="flex gap-2 text-sm">
-            <span style="font-size:12px;margin-right:4px;">【计划】</span>
-            <input onclick="event.stopPropagation()" value="${mod.planFinishDate}" title="计划完成日期：预先设定的目标办结时间，对应导入表格的任务计划日期列" onchange="updateTaskField('module',${mod.id},0,0,'planFinishDate',this.value)" type="date" class="border border-gray-300 rounded px-1 py-1 focus:border-primary outline-none">
-            <span style="font-size:12px;margin-right:4px;color:#235796;">【实际】</span>
-            <input class="date-real" onclick="event.stopPropagation()" value="${mod.actualFinishDate}" title="实际完成日期：任务最终真实办结时间，对应导入表格的任务实际日期列" onchange="updateTaskField('module',${mod.id},0,0,'actualFinishDate',this.value)" type="date" class="border border-gray-300 rounded px-1 py-1 focus:border-primary outline-none">
-          </div>
+    <div class="collapse-header module-header" onclick="toggleModule(${mod.id})">
+    <div class="flex items-center gap-3 flex-wrap">
+<span>${mod.open ? '▾' : '›'}</span>
+<input class="title-input w-52" value="${mod.name}" onclick="event.stopPropagation()" onchange="updateTaskField('module',${mod.id},0,0,'name',this.value)">
+         <div class="progress-bar-bg">
+         <div class="progress-bar-inner" style="width:${mod.progress}%"></div>
+         </div>
+<span class="text-sm text-gray-500">模块进度：${mod.progress}%（自动汇总）</span>
+<div class="flex gap-2 text-sm">
+<span style="font-size:12px;margin-right:4px;">【计划】</span>
+<input onclick="event.stopPropagation()" value="${mod.planFinishDate}" title="计划完成日期：预先设定的目标办结时间，对应导入表格的任务计划日期列" onchange="updateTaskField('module',${mod.id},0,0,'planFinishDate',this.value)" type="date" class="border border-gray-300 rounded px-1 py-1 focus:border-primary outline-none">
+<span style="font-size:12px;margin-right:4px;color:#235796;">【实际】</span>
+           <input class="date-real" onclick="event.stopPropagation()" value="${mod.actualFinishDate}" title="实际完成日期：任务最终真实办结时间，对应导入表格的任务实际日期列" onchange="updateTaskField('module',${mod.id},0,0,'actualFinishDate',this.value)" type="date" class="border border-gray-300 rounded px-1 py-1 focus:border-primary outline-none">
+</div>
         </div>
-        <div class="flex gap-2">
-          <button onclick="addLevelOneTask(${mod.id});event.stopPropagation()" class="text-xs btn-outline-primary px-2 py-1 rounded">新增一级任务</button>
-          <button onclick="deleteModule(${mod.id});event.stopPropagation()" class="text-xs btn-outline-danger px-2 py-1 rounded">删除模块</button>
-        </div>
-      </div>
-      <div class="collapse-body ${mod.open?'open':''}">
+        <div class="flex gap-2 mt-2">
+<button onclick="addLevelOneTask(${mod.id});event.stopPropagation()" class="text-xs btn-outline-primary px-2 py-1 rounded">新增一级任务</button>
+<button onclick="deleteModule(${mod.id});event.stopPropagation()" class="text-xs btn-outline-danger px-2 py-1 rounded">删除模块</button>
+</div>
+</div>
+<div class="collapse-body ${mod.open?'open':''}">
     `;
     if(mod.levelOneTasks.length === 0){
-      html += `<div class="py-2 text-gray-400 text-sm">暂无一级任务，可点击上方按钮添加</div>`;
+      html +=`<div class="py-2 text-gray-400 text-sm">暂无一级任务，可点击上方按钮进行添加</div>`;
     }else{
       mod.levelOneTasks.forEach(oneTask=>{
-        // 一级任务维持原有 › / ˇ 纤细箭头不作改动
         html += `
         <div class="collapse-item my-3">
           <div class="collapse-header py-2" onclick="toggleLevelOne(${mod.id},${oneTask.id})">
-            <div class="flex items-center gap-3 flex-wrap">
-              <span class="text-sm">${oneTask.open ? 'ˇ' : '›'}</span>
+          <div class="flex items-center gap-3 flex-wrap">
+              <span class="text-sm">${oneTask.open ? '▾' : '›'}</span>
               <input class="title-input w-48 text-sm" value="${oneTask.name}" onclick="event.stopPropagation()" onchange="updateTaskField('one',${mod.id},${oneTask.id},0,'name',this.value)">
-              <div class="progress-bar-bg"><div class="progress-bar-inner" style="width:${oneTask.progress}%"></div></div>
-              <span class="text-xs text-gray-500">一级任务进度：${oneTask.progress}%（自动汇总）</span>
-              <div class="flex gap-2 text-xs">
-                <span style="font-size:12px;margin-right:4px;">【计划】</span>
-                <input onclick="event.stopPropagation()" value="${oneTask.planFinishDate}" title="计划完成日期：预先设定的目标办结时间，对应导入表格的任务计划日期列" onchange="updateTaskField('one',${mod.id},${oneTask.id},0,'planFinishDate',this.value)" type="date" class="border border-gray-300 rounded px-1 py-1 focus:border-primary outline-none">
-                <span style="font-size:12px;margin-right:4px;color:#235796;">【实际】</span>
-                <input class="date-real" onclick="event.stopPropagation()" value="${oneTask.actualFinishDate}" title="实际完成日期：任务最终真实办结时间，对应导入表格的任务实际日期列" onchange="updateTaskField('one',${mod.id},${oneTask.id},0,'actualFinishDate',this.value)" type="date" class="border border-gray-300 rounded px-1 py-1 focus:border-primary outline-none">
+              <div class="progress-bar-bg">
+              <div class="progress-bar-inner" style="width:${oneTask.progress}%"></div>
               </div>
-            </div>
-            <div class="flex gap-2">
-              <button onclick="addLevelTwoTask(${mod.id},${oneTask.id});event.stopPropagation()" class="text-xs btn-outline-secondary px-2 py-1 rounded">新增二级任务</button>
-              <button onclick="deleteLevelOneTask(${mod.id},${oneTask.id});event.stopPropagation()" class="text-xs btn-outline-danger px-2 py-1 rounded">删除本条一级任务</button>
-            </div>
-          </div>
-          <div class="collapse-body ${oneTask.open?'open':''} pl-4">
+             <span class="text-xs text-gray-500">一级任务进度：${oneTask.progress}%</span>
+<div class="flex gap-2 text-xs">
+<span style="font-size:12px;margin-right:4px">【计划】</span>
+<input onclick="event.stopPropagation()" value="${oneTask.planFinishDate}" title="计划完成日期：预先设定的目标办结时间，对应导入表格的任务计划日期列" onchange="updateTaskField('one',${mod.id},${oneTask.id},0,'planFinishDate',this.value)" type="date" class="border border-gray-300 rounded px-1 py-1 focus:border-primary outline-none">
+<span style="font-size:12px;margin-right:4px;color:#235796;">【实际】</span>
+                <input class="date-real" onclick="event.stopPropagation()" value="${oneTask.actualFinishDate}" title="实际完成日期：任务最终真实办结时间，对应导入表格的任务实际日期列" onchange="updateTaskField('one',${mod.id},${oneTask.id},0,'actualFinishDate',this.value)" type="date" class="border border-gray-300 rounded px-1 py-1 focus:border-primary outline-none">
+</div>
+</div>
+<div class="flex gap-2 mt-2">
+<button onclick="addLevelTwoTask(${mod.id},${oneTask.id});event.stopPropagation()" class="text-xs btn-outline-secondary px-2 py-1 rounded">新增二级任务</button>
+<button onclick="deleteLevelOneTask(${mod.id},${oneTask.id});event.stopPropagation()" class="text-xs btn-outline-danger px-2 py-1 rounded">删除</button>
+</div>
+</div>
+         <div class="collapse-body ${oneTask.open?'open':''} pl-4">
         `;
         if(oneTask.levelTwoTasks.length === 0){
           html += `<div class="py-2 text-gray-400 text-sm">暂无二级细分任务</div>`;
         }else{
           oneTask.levelTwoTasks.forEach(twoTask=>{
             html += `
-            <div class="flex items-center flex-wrap gap-3 py-2 border-b border-gray-200 text-sm">
+           <div class="flex items-center flex-wrap gap-3 py-2 border-b border-gray-200 text-sm">
               <input value="${twoTask.name}" onclick="event.stopPropagation()" onchange="updateTaskField('two',${mod.id},${oneTask.id},${twoTask.id},'name',this.value)" class="border border-gray-300 px-2 py-1 rounded w-40 focus:border-primary outline-none">
               <span style="font-size:12px;margin-right:4px;">【计划】</span>
               <input onclick="event.stopPropagation()" value="${twoTask.planFinishDate}" title="计划完成日期：预先设定的目标办结时间，对应导入表格的任务计划日期列" onchange="updateTaskField('two',${mod.id},${oneTask.id},${twoTask.id},'planFinishDate',this.value)" type="date" class="border border-gray-300 rounded px-1 py-1 focus:border-primary outline-none">
               <span style="font-size:12px;margin-right:4px;color:#235796;">【实际】</span>
               <input class="date-real" onclick="event.stopPropagation()" value="${twoTask.actualFinishDate}" title="实际完成日期：任务最终真实办结时间，对应导入表格的任务实际日期列" onchange="updateTaskField('two',${mod.id},${oneTask.id},${twoTask.id},'actualFinishDate',this.value)" type="date" class="border border-gray-300 rounded px-1 py-1 focus:border-primary outline-none">
-              <div class="flex items-center gap-2">
-                <input type="number" min="0" max="100" value="${twoTask.progress}" onclick="event.stopPropagation()" onblur="updateTwoProgress(${mod.id},${oneTask.id},${twoTask.id},this.value)" class="w-14 border border-gray-300 rounded px-1 py-1 focus:border-primary outline-none">
-                <span class="text-black">%</span>
-                <div class="progress-bar-bg"><div class="progress-bar-inner" style="width:${twoTask.progress}%"></div></div>
-              </div>
-              <button onclick="deleteLevelTwoTask(${mod.id},${oneTask.id},${twoTask.id});event.stopPropagation()" class="text-xs btn-outline-danger px-2 py-1 rounded">删除</button>
+<div class="flex items-center gap-2">
+<input type="number" min="0" max="100" value="${twoTask.progress}" onclick="event.stopPropagation()" onblur="updateTwoProgress(${mod.id},${oneTask.id},${twoTask.id},this.value)" class="w-14 border border-gray-300 rounded px-1 py-1 focus:border-primary outline-none">
+<span>%</span>
+<div class="progress-bar-bg">
+<div class="progress-bar-inner" style="width:${twoTask.progress}%"></div>
+</div>
+<button onclick="deleteLevelTwoTask(${mod.id},${oneTask.id},${twoTask.id});event.stopPropagation()" class="text-xs btn-outline-danger px-2 py-1 rounded">删除</button>
+</div>
             </div>
-            `;
+          `;
           })
         }
-        html += `</div></div>`;
+        html +=`</div>`;
       })
     }
-    html += `</div></div>`;
+    html +=`</div>`;
   })
   container.innerHTML = html;
 }
 
-// 页面初始化加载
+// V2.6.2 修改初始化入口，优先加载云端数据
 window.onload=()=>{
-  renderMilestone();
-  renderTaskPanel();
+  loadRemoteData();
 }
 </script>
 </body>
