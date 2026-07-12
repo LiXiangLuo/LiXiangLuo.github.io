@@ -10,7 +10,7 @@ jobs:
       - name: 配置OSS工具
         uses: manyuanrong/setup-ossutil@master
         with:
-          endpoint: oss-cn-shenzhen.aliyuncs.com
+          endpoint: oss-cn-hongkong.aliyuncs.com
           access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
           access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
       - name: 上传全部网页文件
