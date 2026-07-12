@@ -12,7 +12,7 @@
         "planFinishDate": "2026-07-31",
         "actualFinishDate": "",
         "progress": 66,
-        "open": false,
+        "open": true,
         "levelOneTasks": [
           {
             "id": 1783778706266,
@@ -124,10 +124,10 @@
           {
             "id": 1783778706278,
             "name": "1. 业务流程",
-            "planFinishDate": "",
+            "planFinishDate": "2026-07-15",
             "actualFinishDate": "",
             "progress": 60,
-            "open": false,
+            "open": true,
             "levelTwoTasks": [
               {
                 "id": 1783778706279,
@@ -150,15 +150,15 @@
           {
             "id": 1783778706281,
             "name": "2. 数据源",
-            "planFinishDate": "",
+            "planFinishDate": "2026-07-24",
             "actualFinishDate": "",
             "progress": 40,
-            "open": false,
+            "open": true,
             "levelTwoTasks": [
               {
                 "id": 1783778706282,
                 "name": "项目结算单表单模板收集",
-                "planFinishDate": "2026-07-12",
+                "planFinishDate": "2026-07-24",
                 "actualFinishDate": "",
                 "progress": 40
               }
@@ -169,10 +169,10 @@
           {
             "id": 1783778706283,
             "name": "3.原型设计",
-            "planFinishDate": "",
+            "planFinishDate": "2026-07-17",
             "actualFinishDate": "",
             "progress": 50,
-            "open": false,
+            "open": true,
             "levelTwoTasks": [
               {
                 "id": 1783778706284,
@@ -195,10 +195,10 @@
           {
             "id": 1783778706286,
             "name": "4. 接口清单",
-            "planFinishDate": "",
+            "planFinishDate": "2026-07-24",
             "actualFinishDate": "",
             "progress": 0,
-            "open": false,
+            "open": true,
             "levelTwoTasks": [
               {
                 "id": 1783778706287,
