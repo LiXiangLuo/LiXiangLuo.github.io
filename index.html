@@ -857,8 +857,8 @@ function downloadCloudJson() {
     const jsonStr = JSON.stringify(milestoneList, null, 2);
     const blob = new Blob([jsonStr], { type: "application/json" });
     const aTag = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "task-data.json";
+    aTag.href = URL.createObjectURL(blob);
+    aTag.download = "task-data.json";
     document.body.appendChild(aTag);
     aTag.click();
     document.body.removeChild(aTag);
