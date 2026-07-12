@@ -1,1 +1,17 @@
-
+name: 同步文件到OSS
+on:
+  push:
+    branches: [ main ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: 配置OSS工具
+        uses: manyuanrong/setup-ossutil@master
+        with:
+          endpoint: oss-cn-xxx.aliyuncs.com
+          access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
+          access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+      - name: 上传全部网页文件
+        run: ossutil cp -r . oss://luolixiang/ --force
