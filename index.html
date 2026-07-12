@@ -1,5 +1,6 @@
 <!--
-版本号：V2.6.6
+版本号：V2.6.6改
+注释掉阿里oss拉取代码
 迭代基准：V2.6.4（母体V2.6.0全套业务、样式、导入导出、云端同步代码无任何修改，历史全部BUG原样保留）
 迭代类型：新增全局GitHub PAT变量；重构loadRemoteData实现双数据源自动兼容；原有页面/样式/业务逻辑全部封存不动，BUG不修复
 更新内容说明：
@@ -803,25 +804,7 @@ async function loadRemoteData() {
     }
 
     // GitHub失败/线上环境，读取OSS备用json
-    if (!loadSuccess) {
-        try {
-            const ossResp = await fetch(ossBackupUrl, { signal: abortCtrl.signal });
-            if (ossResp.ok) {
-                const ossJson = await ossResp.json();
-                if (Array.isArray(ossJson)) {
-                    milestoneList = ossJson;
-                    renderMilestone();
-                    renderTaskPanel();
-                    loadSuccess = true;
-                    console.log("【数据源加载成功】阿里云OSS https://itdallx.cn/task-data.json");
-                }
-            } else {
-                throw new Error(`OSS响应异常，状态码${ossResp.status}`);
-            }
-        } catch (ossErr) {
-            console.error("【GitHub+OSS双数据源均失败】自动使用本地缓存数据：", ossErr.message);
-        }
-    }
+
 
     clearTimeout(timer);
 }
