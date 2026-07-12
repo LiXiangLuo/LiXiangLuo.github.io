@@ -4,7 +4,7 @@
     "name": "调研与方案设计",
     "planDate": "2026-07-31",
     "status": "doing",
-    "progress": 21,
+    "progress": 26,
     "moduleList": [
       {
         "id": 1783778706265,
@@ -118,7 +118,7 @@
         "name": "2.结算管理",
         "planFinishDate": "2026-07-31",
         "actualFinishDate": "",
-        "progress": 38,
+        "progress": 43,
         "open": false,
         "levelOneTasks": [
           {
@@ -138,7 +138,7 @@
               },
               {
                 "id": 1783778706280,
-                "name": "应收入账及开票流程梳理",
+                "name": "开票应收系统联动专项调研",
                 "planFinishDate": "2026-07-15",
                 "actualFinishDate": "",
                 "progress": 60
@@ -197,7 +197,7 @@
             "name": "4. 接口清单",
             "planFinishDate": "2026-07-24",
             "actualFinishDate": "",
-            "progress": 0,
+            "progress": 20,
             "open": true,
             "levelTwoTasks": [
               {
@@ -205,7 +205,7 @@
                 "name": "欣通接口：电量同步接口",
                 "planFinishDate": "2026-07-24",
                 "actualFinishDate": "",
-                "progress": 0
+                "progress": 20
               }
             ],
             "autoPlanDate": true,
@@ -304,7 +304,7 @@
         "name": "4.核容测算",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 0,
+        "progress": 19,
         "open": false,
         "levelOneTasks": [
           {
@@ -312,15 +312,22 @@
             "name": "1.流程",
             "planFinishDate": "",
             "actualFinishDate": "",
-            "progress": 0,
-            "open": false,
+            "progress": 75,
+            "open": true,
             "levelTwoTasks": [
               {
                 "id": 1783860332159,
-                "name": "1.流程",
+                "name": "核容流程调研",
                 "planFinishDate": "",
                 "actualFinishDate": "",
-                "progress": 0
+                "progress": 50
+              },
+              {
+                "id": 1783872956467,
+                "name": "剔除投建核容模块",
+                "planFinishDate": "",
+                "actualFinishDate": "",
+                "progress": 100
               }
             ],
             "autoPlanDate": true,
@@ -390,7 +397,7 @@
         "name": "5.运营策略",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 0,
+        "progress": 4,
         "open": false,
         "levelOneTasks": [
           {
@@ -398,12 +405,19 @@
             "name": "1.流程",
             "planFinishDate": "",
             "actualFinishDate": "",
-            "progress": 0,
-            "open": false,
+            "progress": 15,
+            "open": true,
             "levelTwoTasks": [
               {
                 "id": 1783860332168,
-                "name": "1.流程",
+                "name": "运维系统控制能力调研",
+                "planFinishDate": "",
+                "actualFinishDate": "",
+                "progress": 30
+              },
+              {
+                "id": 1783872956468,
+                "name": "欣通控制策略格式",
                 "planFinishDate": "",
                 "actualFinishDate": "",
                 "progress": 0
