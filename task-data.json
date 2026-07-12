@@ -4,7 +4,7 @@
     "name": "调研与方案设计",
     "planDate": "2026-07-31",
     "status": "doing",
-    "progress": 52,
+    "progress": 21,
     "moduleList": [
       {
         "id": 1783778706265,
@@ -12,7 +12,7 @@
         "planFinishDate": "2026-07-31",
         "actualFinishDate": "",
         "progress": 66,
-        "open": true,
+        "open": false,
         "levelOneTasks": [
           {
             "id": 1783778706266,
@@ -119,7 +119,7 @@
         "planFinishDate": "2026-07-31",
         "actualFinishDate": "",
         "progress": 38,
-        "open": true,
+        "open": false,
         "levelOneTasks": [
           {
             "id": 1783778706278,
@@ -204,6 +204,264 @@
                 "id": 1783778706287,
                 "name": "欣通接口：电量同步接口",
                 "planFinishDate": "2026-07-24",
+                "actualFinishDate": "",
+                "progress": 0
+              }
+            ],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          }
+        ]
+      },
+      {
+        "id": 1783860332148,
+        "name": "3.运营监控",
+        "planFinishDate": "",
+        "actualFinishDate": "",
+        "progress": 0,
+        "open": false,
+        "levelOneTasks": [
+          {
+            "id": 1783860332149,
+            "name": "1.流程",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [
+              {
+                "id": 1783860332150,
+                "name": "1.流程",
+                "planFinishDate": "",
+                "actualFinishDate": "",
+                "progress": 0
+              }
+            ],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          },
+          {
+            "id": 1783860332151,
+            "name": "2.数据源",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [
+              {
+                "id": 1783860332152,
+                "name": "2.数据源",
+                "planFinishDate": "",
+                "actualFinishDate": "",
+                "progress": 0
+              }
+            ],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          },
+          {
+            "id": 1783860332153,
+            "name": "3.原型设计",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [
+              {
+                "id": 1783860332154,
+                "name": "3.原型设计",
+                "planFinishDate": "",
+                "actualFinishDate": "",
+                "progress": 0
+              }
+            ],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          },
+          {
+            "id": 1783860332155,
+            "name": "4.接口需求",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [
+              {
+                "id": 1783860332156,
+                "name": "4.接口需求",
+                "planFinishDate": "",
+                "actualFinishDate": "",
+                "progress": 0
+              }
+            ],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          }
+        ]
+      },
+      {
+        "id": 1783860332157,
+        "name": "4.核容测算",
+        "planFinishDate": "",
+        "actualFinishDate": "",
+        "progress": 0,
+        "open": false,
+        "levelOneTasks": [
+          {
+            "id": 1783860332158,
+            "name": "1.流程",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [
+              {
+                "id": 1783860332159,
+                "name": "1.流程",
+                "planFinishDate": "",
+                "actualFinishDate": "",
+                "progress": 0
+              }
+            ],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          },
+          {
+            "id": 1783860332160,
+            "name": "2.数据源",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [
+              {
+                "id": 1783860332161,
+                "name": "2.数据源",
+                "planFinishDate": "",
+                "actualFinishDate": "",
+                "progress": 0
+              }
+            ],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          },
+          {
+            "id": 1783860332162,
+            "name": "3.原型设计",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [
+              {
+                "id": 1783860332163,
+                "name": "3.原型设计",
+                "planFinishDate": "",
+                "actualFinishDate": "",
+                "progress": 0
+              }
+            ],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          },
+          {
+            "id": 1783860332164,
+            "name": "4.接口需求",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [
+              {
+                "id": 1783860332165,
+                "name": "4.接口需求",
+                "planFinishDate": "",
+                "actualFinishDate": "",
+                "progress": 0
+              }
+            ],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          }
+        ]
+      },
+      {
+        "id": 1783860332166,
+        "name": "5.运营策略",
+        "planFinishDate": "",
+        "actualFinishDate": "",
+        "progress": 0,
+        "open": false,
+        "levelOneTasks": [
+          {
+            "id": 1783860332167,
+            "name": "1.流程",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [
+              {
+                "id": 1783860332168,
+                "name": "1.流程",
+                "planFinishDate": "",
+                "actualFinishDate": "",
+                "progress": 0
+              }
+            ],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          },
+          {
+            "id": 1783860332169,
+            "name": "2.数据源",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [
+              {
+                "id": 1783860332170,
+                "name": "2.数据源",
+                "planFinishDate": "",
+                "actualFinishDate": "",
+                "progress": 0
+              }
+            ],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          },
+          {
+            "id": 1783860332171,
+            "name": "3.原型设计",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [
+              {
+                "id": 1783860332172,
+                "name": "3.原型设计",
+                "planFinishDate": "",
+                "actualFinishDate": "",
+                "progress": 0
+              }
+            ],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          },
+          {
+            "id": 1783860332173,
+            "name": "4.接口需求",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [
+              {
+                "id": 1783860332174,
+                "name": "4.接口需求",
+                "planFinishDate": "",
                 "actualFinishDate": "",
                 "progress": 0
               }
