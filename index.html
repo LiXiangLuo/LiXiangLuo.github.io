@@ -394,7 +394,7 @@ function exportAllData(){
   a.href = url;
   a.download = `任务表格_${timestamp}.xlsx`;
   document.body.appendChild(a);
-  aTag.click();
+  a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
@@ -859,7 +859,7 @@ function downloadCloudJson() {
     const aTag = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = "task-data.json";
-    document.body.appendChild(a);
+    document.body.appendChild(aTag);
     aTag.click();
     document.body.removeChild(aTag);
     URL.revokeObjectURL(aTag.href);
