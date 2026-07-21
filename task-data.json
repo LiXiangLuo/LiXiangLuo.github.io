@@ -4,7 +4,7 @@
     "name": "调研与方案设计",
     "planDate": "2026-07-31",
     "status": "doing",
-    "progress": 27,
+    "progress": 29,
     "moduleList": [
       {
         "id": 1784473253815,
@@ -167,7 +167,7 @@
         "name": "2.结算管理",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 50,
+        "progress": 59,
         "open": true,
         "levelOneTasks": [
           {
@@ -208,7 +208,7 @@
             "name": "2. 数据流",
             "planFinishDate": "2026-07-24",
             "actualFinishDate": "",
-            "progress": 30,
+            "progress": 33,
             "open": true,
             "levelTwoTasks": [
               {
@@ -279,7 +279,7 @@
                 "name": "ERP/财务共享/运营系统数据流转图",
                 "planFinishDate": "2026-07-22",
                 "actualFinishDate": "",
-                "progress": 33
+                "progress": 55
               }
             ],
             "autoPlanDate": true,
@@ -316,15 +316,15 @@
             "name": "4. 接口清单",
             "planFinishDate": "",
             "actualFinishDate": "",
-            "progress": 20,
-            "open": false,
+            "progress": 54,
+            "open": true,
             "levelTwoTasks": [
               {
                 "id": 1784473253853,
                 "name": "欣通云接口需求清单",
                 "planFinishDate": "2026-07-24",
                 "actualFinishDate": "",
-                "progress": 20
+                "progress": 88
               },
               {
                 "id": 1784473253854,
