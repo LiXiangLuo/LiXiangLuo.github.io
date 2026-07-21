@@ -11,7 +11,7 @@
         "name": "1.资产管理",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 57,
+        "progress": 58,
         "open": true,
         "levelOneTasks": [
           {
@@ -45,7 +45,7 @@
             "name": "2.数据流",
             "planFinishDate": "2026-07-23",
             "actualFinishDate": "",
-            "progress": 64,
+            "progress": 65,
             "open": true,
             "levelTwoTasks": [
               {
@@ -73,15 +73,15 @@
                 "id": 1784473253824,
                 "name": "确定大文件存储方案//IDC文件服务器",
                 "planFinishDate": "2026-07-23",
-                "actualFinishDate": "",
-                "progress": 100
+                "actualFinishDate": "2026-07-20",
+                "progress": 99
               },
               {
                 "id": 1784473253825,
                 "name": "确定OA附件是否支持同步//支持但OA附件无法关联项目和清单分类",
                 "planFinishDate": "2026-07-23",
-                "actualFinishDate": "",
-                "progress": 100
+                "actualFinishDate": "2026-07-20",
+                "progress": 99
               },
               {
                 "id": 1784473253826,
@@ -95,7 +95,7 @@
                 "name": "提供973资产清单-折旧规则对齐",
                 "planFinishDate": "2026-07-23",
                 "actualFinishDate": "",
-                "progress": 100
+                "progress": 99
               },
               {
                 "id": 1784473253828,
@@ -106,10 +106,10 @@
               },
               {
                 "id": 1784507778496,
-                "name": "项目档案上传是否覆盖建设前项目//需要评估是否增加临时档案",
+                "name": "项目档案上传涵盖建设前项目//需要评估是否增加临时档案",
                 "planFinishDate": "",
                 "actualFinishDate": "",
-                "progress": 50
+                "progress": 55
               }
             ],
             "autoPlanDate": true,
@@ -234,7 +234,7 @@
               },
               {
                 "id": 1784473253843,
-                "name": "ERP-法人主体客户在ERP/运营系统的建档方式",
+                "name": "ERP-法人主体客户在ERP/运营系统的建档方式//建档后同步",
                 "planFinishDate": "2026-07-22",
                 "actualFinishDate": "",
                 "progress": 90
@@ -273,6 +273,13 @@
                 "planFinishDate": "2026-07-24",
                 "actualFinishDate": "",
                 "progress": 0
+              },
+              {
+                "id": 1784616715380,
+                "name": "ERP/财务共享/运营系统数据流转图",
+                "planFinishDate": "2026-07-22",
+                "actualFinishDate": "",
+                "progress": 33
               }
             ],
             "autoPlanDate": true,
