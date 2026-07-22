@@ -4,14 +4,14 @@
     "name": "调研与方案设计",
     "planDate": "2026-07-31",
     "status": "doing",
-    "progress": 29,
+    "progress": 34,
     "moduleList": [
       {
         "id": 1784473253815,
         "name": "1.资产管理",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 58,
+        "progress": 60,
         "open": true,
         "levelOneTasks": [
           {
@@ -45,7 +45,7 @@
             "name": "2.数据流",
             "planFinishDate": "2026-07-23",
             "actualFinishDate": "",
-            "progress": 65,
+            "progress": 73,
             "open": true,
             "levelTwoTasks": [
               {
@@ -81,32 +81,32 @@
                 "name": "确定OA附件是否支持同步//支持但OA附件无法关联项目和清单分类",
                 "planFinishDate": "2026-07-23",
                 "actualFinishDate": "2026-07-20",
-                "progress": 99
+                "progress": 100
               },
               {
                 "id": 1784473253826,
                 "name": "资产评价报告模版梳理",
                 "planFinishDate": "2026-07-23",
                 "actualFinishDate": "",
-                "progress": 0
+                "progress": 55
               },
               {
                 "id": 1784473253827,
                 "name": "提供973资产清单-折旧规则对齐",
                 "planFinishDate": "2026-07-23",
                 "actualFinishDate": "",
-                "progress": 99
+                "progress": 100
               },
               {
                 "id": 1784473253828,
                 "name": "欣通云-场站映射方案",
                 "planFinishDate": "",
                 "actualFinishDate": "",
-                "progress": 0
+                "progress": 22
               },
               {
                 "id": 1784507778496,
-                "name": "项目档案上传涵盖建设前项目//需要评估是否增加临时档案",
+                "name": "项目档案上传涵盖建设前项目//与流程部评估上传方案",
                 "planFinishDate": "",
                 "actualFinishDate": "",
                 "progress": 55
@@ -167,7 +167,7 @@
         "name": "2.结算管理",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 59,
+        "progress": 70,
         "open": true,
         "levelOneTasks": [
           {
@@ -208,7 +208,7 @@
             "name": "2. 数据流",
             "planFinishDate": "2026-07-24",
             "actualFinishDate": "",
-            "progress": 33,
+            "progress": 74,
             "open": true,
             "levelTwoTasks": [
               {
@@ -223,14 +223,14 @@
                 "name": "分析结算单电量电价来源及公式",
                 "planFinishDate": "2026-07-23",
                 "actualFinishDate": "",
-                "progress": 0
+                "progress": 55
               },
               {
                 "id": 1784473253842,
                 "name": "ERP-关联成本科目-同步成本数据方案",
                 "planFinishDate": "2026-07-22",
                 "actualFinishDate": "",
-                "progress": 0
+                "progress": 55
               },
               {
                 "id": 1784473253843,
@@ -241,24 +241,24 @@
               },
               {
                 "id": 1784473253844,
-                "name": "ERP-财务待办-完善成本科目、应收凭证科目、导出ERP项目数据",
+                "name": "财务待办-完善成本科目、应收凭证科目、导出ERP项目数据",
                 "planFinishDate": "2026-07-22",
                 "actualFinishDate": "",
-                "progress": 0
+                "progress": 99
               },
               {
                 "id": 1784473253845,
                 "name": "财务共享&运营系统法人主体、客户编码对齐",
                 "planFinishDate": "2026-07-22",
                 "actualFinishDate": "",
-                "progress": 0
+                "progress": 99
               },
               {
                 "id": 1784473253846,
-                "name": "财务共享-开票信息推送，按标准接口字段推送，发票对应回款后推送通知；",
+                "name": "财务共享-开票信息推送方式//按标准接口字段推送，发票对应回款后推送通知；",
                 "planFinishDate": "2026-07-22",
                 "actualFinishDate": "",
-                "progress": 80
+                "progress": 100
               },
               {
                 "id": 1784473253847,
@@ -272,14 +272,14 @@
                 "name": "欣通云-场站数据映射方案",
                 "planFinishDate": "2026-07-24",
                 "actualFinishDate": "",
-                "progress": 0
+                "progress": 55
               },
               {
                 "id": 1784616715380,
-                "name": "ERP/财务共享/运营系统数据流转图",
+                "name": "数据流转图-ERP/财务共享/运营系统",
                 "planFinishDate": "2026-07-22",
                 "actualFinishDate": "",
-                "progress": 55
+                "progress": 88
               }
             ],
             "autoPlanDate": true,
@@ -418,7 +418,7 @@
         "name": "4.核容测算",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 25,
+        "progress": 38,
         "open": true,
         "levelOneTasks": [
           {
@@ -490,22 +490,22 @@
             "name": "4.接口需求",
             "planFinishDate": "",
             "actualFinishDate": "",
-            "progress": 0,
-            "open": false,
+            "progress": 50,
+            "open": true,
             "levelTwoTasks": [
               {
                 "id": 1784473253872,
                 "name": "4.接口需求",
                 "planFinishDate": "",
                 "actualFinishDate": "",
-                "progress": 0
+                "progress": 11
               },
               {
                 "id": 1784473253873,
                 "name": "投资测算-可行性、投前模型用历史数据测复盘irr",
                 "planFinishDate": "",
                 "actualFinishDate": "",
-                "progress": 0
+                "progress": 88
               }
             ],
             "autoPlanDate": true,
@@ -519,7 +519,7 @@
         "planFinishDate": "",
         "actualFinishDate": "",
         "progress": 4,
-        "open": true,
+        "open": false,
         "levelOneTasks": [
           {
             "id": 1784473253875,
@@ -527,7 +527,7 @@
             "planFinishDate": "",
             "actualFinishDate": "",
             "progress": 15,
-            "open": false,
+            "open": true,
             "levelTwoTasks": [
               {
                 "id": 1784473253876,
