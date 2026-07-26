@@ -221,6 +221,17 @@ V2.6.0原版原有更新说明：
 let milestoneList = JSON.parse(localStorage.getItem("milestoneData")) || [];
 let selectMilestoneId = null;
 let uniqueId = Date.now();
+// V2.6.7 方案A 纯新增独立排序工具函数，全局可复用
+function sortLevelTwoTaskByPlanDate(levelOneTask) {
+    levelOneTask.levelTwoTasks.sort((a, b) => {
+        const dateA = a.planFinishDate || "";
+        const dateB = b.planFinishDate || "";
+        // 空日期前置，YYYY-MM-DD字符串升序
+        if (!dateA && dateB) return -1;
+        if (dateA && !dateB) return 1;
+        return dateA.localeCompare(dateB);
+    });
+}
 // V2.6.0 新增：全局防抖锁，规避死循环与重复请求
 const refreshTaskLock = new Map();
 const LOCK_EXPIRE = 300;
@@ -743,6 +754,8 @@ function renderTaskPanel(){
       html += `<div class="py-2 text-gray-400 text-sm">暂无一级任务，可点击上方按钮添加</div>`;
     }else{
       mod.levelOneTasks.forEach(oneTask=>{
+        // ========== 方案A唯一新增调用行，其余循环代码原版完全不变 ==========
+        sortLevelTwoTaskByPlanDate(oneTask);
         html += `
         <div class="collapse-item my-3">
           <div class="collapse-header py-2" onclick="toggleLevelOne(${mod.id},${oneTask.id})">
