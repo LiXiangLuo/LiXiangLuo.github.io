@@ -4,7 +4,7 @@
     "name": "调研与方案设计",
     "planDate": "2026-07-31",
     "status": "doing",
-    "progress": 57,
+    "progress": 62,
     "moduleList": [
       {
         "id": 1784473253815,
@@ -71,7 +71,7 @@
               },
               {
                 "id": 1784473253825,
-                "name": "确定OA附件是否支持同步//支持但OA附件同步方案",
+                "name": "确定OA附件同步可行性",
                 "planFinishDate": "2026-07-23",
                 "actualFinishDate": "2026-07-20",
                 "progress": 100
@@ -302,7 +302,7 @@
         "name": "3.运营监控",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 33,
+        "progress": 63,
         "open": true,
         "levelOneTasks": [
           {
@@ -310,22 +310,22 @@
             "name": "2.数据源",
             "planFinishDate": "",
             "actualFinishDate": "",
-            "progress": 0,
+            "progress": 90,
             "open": true,
             "levelTwoTasks": [
               {
                 "id": 1784473253857,
-                "name": "欣通云-故障时长、SOC、SOH效能数据获取",
+                "name": "目标、发电计划流程",
                 "planFinishDate": "",
                 "actualFinishDate": "",
-                "progress": 0
+                "progress": 100
               },
               {
                 "id": 1784473253858,
-                "name": "欣通云-设备运行数据指标",
+                "name": "偏差、敏感性分析方式",
                 "planFinishDate": "",
                 "actualFinishDate": "",
-                "progress": 0
+                "progress": 80
               }
             ],
             "autoPlanDate": true,
@@ -446,24 +446,24 @@
           {
             "id": 1784473253871,
             "name": "4.接口需求",
-            "planFinishDate": "",
+            "planFinishDate": "2026-07-31",
             "actualFinishDate": "",
-            "progress": 50,
+            "progress": 51,
             "open": true,
             "levelTwoTasks": [
               {
-                "id": 1784473253872,
-                "name": "4.接口需求",
+                "id": 1784473253873,
+                "name": "投资测算模型对接调研",
                 "planFinishDate": "",
                 "actualFinishDate": "",
-                "progress": 11
+                "progress": 90
               },
               {
-                "id": 1784473253873,
-                "name": "投资测算-可行性、投前模型用历史数据测复盘irr",
-                "planFinishDate": "",
+                "id": 1784473253872,
+                "name": "投前数据、投资模型接口方案",
+                "planFinishDate": "2026-07-31",
                 "actualFinishDate": "",
-                "progress": 88
+                "progress": 11
               }
             ],
             "autoPlanDate": true,
