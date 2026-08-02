@@ -4,7 +4,7 @@
     "name": "调研与方案设计",
     "planDate": "2026-07-31",
     "status": "doing",
-    "progress": 62,
+    "progress": 86,
     "moduleList": [
       {
         "id": 1784473253815,
@@ -139,7 +139,7 @@
         "name": "2.结算管理",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 74,
+        "progress": 95,
         "open": true,
         "levelOneTasks": [
           {
@@ -147,7 +147,7 @@
             "name": "1. 业务流程",
             "planFinishDate": "2026-07-30",
             "actualFinishDate": "2026-07-22",
-            "progress": 64,
+            "progress": 97,
             "open": true,
             "levelTwoTasks": [
               {
@@ -176,14 +176,14 @@
                 "name": "财务流程梳理-成本核算",
                 "planFinishDate": "2026-07-29",
                 "actualFinishDate": "",
-                "progress": 20
+                "progress": 88
               },
               {
                 "id": 1785085621491,
                 "name": "复合电站项目核算关系梳理",
                 "planFinishDate": "2026-07-30",
                 "actualFinishDate": "",
-                "progress": 0
+                "progress": 99
               }
             ],
             "autoPlanDate": true,
@@ -194,7 +194,7 @@
             "name": "2. 数据流",
             "planFinishDate": "2026-07-29",
             "actualFinishDate": "",
-            "progress": 87,
+            "progress": 98,
             "open": true,
             "levelTwoTasks": [
               {
@@ -237,7 +237,7 @@
                 "name": "成本数据流转方案",
                 "planFinishDate": "2026-07-29",
                 "actualFinishDate": "",
-                "progress": 20
+                "progress": 88
               }
             ],
             "autoPlanDate": true,
@@ -274,7 +274,7 @@
             "name": "4. 接口清单",
             "planFinishDate": "",
             "actualFinishDate": "",
-            "progress": 60,
+            "progress": 100,
             "open": true,
             "levelTwoTasks": [
               {
@@ -289,7 +289,7 @@
                 "name": "ERP/财务共享接口：应收应付凭证接口、开票申请接口",
                 "planFinishDate": "2026-07-24",
                 "actualFinishDate": "",
-                "progress": 20
+                "progress": 99
               }
             ],
             "autoPlanDate": true,
@@ -302,7 +302,7 @@
         "name": "3.运营监控",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 63,
+        "progress": 81,
         "open": true,
         "levelOneTasks": [
           {
@@ -336,7 +336,7 @@
             "name": "3.原型设计",
             "planFinishDate": "2026-07-31",
             "actualFinishDate": "",
-            "progress": 50,
+            "progress": 55,
             "open": true,
             "levelTwoTasks": [
               {
@@ -344,7 +344,7 @@
                 "name": "高保真原型",
                 "planFinishDate": "2026-07-31",
                 "actualFinishDate": "",
-                "progress": 50
+                "progress": 55
               }
             ],
             "autoPlanDate": true,
@@ -355,7 +355,7 @@
             "name": "4.接口需求",
             "planFinishDate": "2026-07-24",
             "actualFinishDate": "",
-            "progress": 50,
+            "progress": 99,
             "open": true,
             "levelTwoTasks": [
               {
@@ -363,7 +363,7 @@
                 "name": "欣通云平台接口需求清单-运行、故障",
                 "planFinishDate": "2026-07-24",
                 "actualFinishDate": "",
-                "progress": 50
+                "progress": 99
               }
             ],
             "autoPlanDate": true,
@@ -376,7 +376,7 @@
         "name": "4.核容测算",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 75,
+        "progress": 87,
         "open": true,
         "levelOneTasks": [
           {
@@ -448,7 +448,7 @@
             "name": "4.接口需求",
             "planFinishDate": "2026-07-31",
             "actualFinishDate": "",
-            "progress": 51,
+            "progress": 99,
             "open": true,
             "levelTwoTasks": [
               {
@@ -456,14 +456,14 @@
                 "name": "投资测算模型对接调研",
                 "planFinishDate": "",
                 "actualFinishDate": "",
-                "progress": 90
+                "progress": 99
               },
               {
                 "id": 1784473253872,
                 "name": "投前数据、投资模型接口方案",
                 "planFinishDate": "2026-07-31",
                 "actualFinishDate": "",
-                "progress": 11
+                "progress": 99
               }
             ],
             "autoPlanDate": true,
@@ -476,7 +476,7 @@
         "name": "5.运营策略",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 22,
+        "progress": 83,
         "open": true,
         "levelOneTasks": [
           {
@@ -484,7 +484,7 @@
             "name": "1.流程",
             "planFinishDate": "",
             "actualFinishDate": "",
-            "progress": 15,
+            "progress": 99,
             "open": true,
             "levelTwoTasks": [
               {
@@ -492,14 +492,14 @@
                 "name": "运维系统控制能力调研",
                 "planFinishDate": "",
                 "actualFinishDate": "",
-                "progress": 30
+                "progress": 99
               },
               {
                 "id": 1784473253877,
                 "name": "欣通控制策略格式",
                 "planFinishDate": "",
                 "actualFinishDate": "",
-                "progress": 0
+                "progress": 99
               }
             ],
             "autoPlanDate": true,
@@ -529,15 +529,15 @@
             "name": "3.接口需求",
             "planFinishDate": "",
             "actualFinishDate": "",
-            "progress": 0,
-            "open": false,
+            "progress": 99,
+            "open": true,
             "levelTwoTasks": [
               {
                 "id": 1784473253883,
                 "name": "4.接口需求",
                 "planFinishDate": "",
                 "actualFinishDate": "",
-                "progress": 0
+                "progress": 99
               }
             ],
             "autoPlanDate": true,
@@ -550,7 +550,7 @@
         "name": "运营看板",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 43,
+        "progress": 71,
         "open": true,
         "levelOneTasks": [
           {
@@ -558,7 +558,7 @@
             "name": "数据指标",
             "planFinishDate": "2026-07-31",
             "actualFinishDate": "",
-            "progress": 15,
+            "progress": 72,
             "open": true,
             "levelTwoTasks": [
               {
@@ -566,14 +566,14 @@
                 "name": "指标梳理",
                 "planFinishDate": "2026-07-30",
                 "actualFinishDate": "",
-                "progress": 30
+                "progress": 88
               },
               {
                 "id": 1785085621490,
                 "name": "预留多种业态拓展性",
                 "planFinishDate": "2026-07-31",
                 "actualFinishDate": "",
-                "progress": 0
+                "progress": 55
               }
             ],
             "autoPlanDate": true,
