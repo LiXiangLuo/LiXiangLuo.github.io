@@ -930,7 +930,7 @@
         "planFinishDate": "",
         "actualFinishDate": "",
         "progress": 67,
-        "open": false,
+        "open": true,
         "levelOneTasks": [
           {
             "id": 1784473253900,
@@ -1006,8 +1006,20 @@
         "planFinishDate": "",
         "actualFinishDate": "",
         "progress": 0,
-        "open": false,
-        "levelOneTasks": []
+        "open": true,
+        "levelOneTasks": [
+          {
+            "id": 1786091967721,
+            "name": "原型设计",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          }
+        ]
       },
       {
         "id": 1784507778492,
@@ -1015,8 +1027,20 @@
         "planFinishDate": "",
         "actualFinishDate": "",
         "progress": 0,
-        "open": false,
-        "levelOneTasks": []
+        "open": true,
+        "levelOneTasks": [
+          {
+            "id": 1786091967722,
+            "name": "原型设计",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          }
+        ]
       },
       {
         "id": 1784507778493,
@@ -1024,8 +1048,20 @@
         "planFinishDate": "",
         "actualFinishDate": "",
         "progress": 0,
-        "open": false,
-        "levelOneTasks": []
+        "open": true,
+        "levelOneTasks": [
+          {
+            "id": 1786091967723,
+            "name": "原型设计",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          }
+        ]
       },
       {
         "id": 1784507778494,
@@ -1033,8 +1069,20 @@
         "planFinishDate": "",
         "actualFinishDate": "",
         "progress": 0,
-        "open": false,
-        "levelOneTasks": []
+        "open": true,
+        "levelOneTasks": [
+          {
+            "id": 1786091967724,
+            "name": "原型设计",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          }
+        ]
       },
       {
         "id": 1784507778495,
@@ -1042,8 +1090,20 @@
         "planFinishDate": "",
         "actualFinishDate": "",
         "progress": 0,
-        "open": false,
-        "levelOneTasks": []
+        "open": true,
+        "levelOneTasks": [
+          {
+            "id": 1786091967725,
+            "name": "原型设计",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          }
+        ]
       },
       {
         "id": 1786082665293,
@@ -1051,8 +1111,20 @@
         "planFinishDate": "",
         "actualFinishDate": "",
         "progress": 0,
-        "open": false,
-        "levelOneTasks": []
+        "open": true,
+        "levelOneTasks": [
+          {
+            "id": 1786091967726,
+            "name": "原型设计",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          }
+        ]
       }
     ]
   },
