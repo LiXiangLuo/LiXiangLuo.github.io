@@ -893,7 +893,7 @@
     "name": "系统开发与实施",
     "planDate": "2026-10-31",
     "status": "doing",
-    "progress": 63,
+    "progress": 35,
     "moduleList": [
       {
         "id": 1784473253889,
@@ -1045,7 +1045,7 @@
         "name": "资产管理",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 80,
+        "progress": 27,
         "open": false,
         "levelOneTasks": [
           {
@@ -1066,6 +1066,28 @@
             ],
             "autoPlanDate": true,
             "autoActualDate": true
+          },
+          {
+            "id": 1786322977512,
+            "name": "代码构建",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": true,
+            "levelTwoTasks": [],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          },
+          {
+            "id": 1786322977524,
+            "name": "联调上线",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [],
+            "autoPlanDate": true,
+            "autoActualDate": true
           }
         ]
       },
@@ -1074,8 +1096,8 @@
         "name": "结算管理",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 40,
-        "open": true,
+        "progress": 20,
+        "open": false,
         "levelOneTasks": [
           {
             "id": 1786091967722,
@@ -1106,6 +1128,28 @@
             "levelTwoTasks": [],
             "autoPlanDate": true,
             "autoActualDate": true
+          },
+          {
+            "id": 1786322977513,
+            "name": "代码构建",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          },
+          {
+            "id": 1786322977523,
+            "name": "联调上线",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": true,
+            "levelTwoTasks": [],
+            "autoPlanDate": true,
+            "autoActualDate": true
           }
         ]
       },
@@ -1114,7 +1158,7 @@
         "name": "运营监控",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 50,
+        "progress": 17,
         "open": false,
         "levelOneTasks": [
           {
@@ -1135,6 +1179,28 @@
             ],
             "autoPlanDate": true,
             "autoActualDate": true
+          },
+          {
+            "id": 1786322977511,
+            "name": "代码构建",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          },
+          {
+            "id": 1786322977522,
+            "name": "联调上线",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [],
+            "autoPlanDate": true,
+            "autoActualDate": true
           }
         ]
       },
@@ -1143,7 +1209,7 @@
         "name": "核容测算",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 50,
+        "progress": 17,
         "open": false,
         "levelOneTasks": [
           {
@@ -1164,6 +1230,28 @@
             ],
             "autoPlanDate": true,
             "autoActualDate": true
+          },
+          {
+            "id": 1786322977514,
+            "name": "代码构建",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": true,
+            "levelTwoTasks": [],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          },
+          {
+            "id": 1786322977521,
+            "name": "联调上线",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [],
+            "autoPlanDate": true,
+            "autoActualDate": true
           }
         ]
       },
@@ -1172,8 +1260,8 @@
         "name": "运营策略",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 50,
-        "open": false,
+        "progress": 17,
+        "open": true,
         "levelOneTasks": [
           {
             "id": 1786091967725,
@@ -1193,6 +1281,28 @@
             ],
             "autoPlanDate": true,
             "autoActualDate": true
+          },
+          {
+            "id": 1786322977515,
+            "name": "代码构建",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          },
+          {
+            "id": 1786322977519,
+            "name": "联调上线",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [],
+            "autoPlanDate": true,
+            "autoActualDate": true
           }
         ]
       },
@@ -1201,8 +1311,8 @@
         "name": "运营看板",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 80,
-        "open": false,
+        "progress": 27,
+        "open": true,
         "levelOneTasks": [
           {
             "id": 1786091967726,
@@ -1220,6 +1330,28 @@
                 "progress": 80
               }
             ],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          },
+          {
+            "id": 1786322977516,
+            "name": "代码构建",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": true,
+            "levelTwoTasks": [],
+            "autoPlanDate": true,
+            "autoActualDate": true
+          },
+          {
+            "id": 1786322977518,
+            "name": "联调上线",
+            "planFinishDate": "",
+            "actualFinishDate": "",
+            "progress": 0,
+            "open": false,
+            "levelTwoTasks": [],
             "autoPlanDate": true,
             "autoActualDate": true
           }
