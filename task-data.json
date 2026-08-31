@@ -893,7 +893,7 @@
     "name": "系统开发与实施",
     "planDate": "2026-10-31",
     "status": "doing",
-    "progress": 24,
+    "progress": 28,
     "moduleList": [
       {
         "id": 1787503323352,
@@ -1074,28 +1074,9 @@
         "name": "UAT环境安全修正",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 56,
+        "progress": 58,
         "open": false,
         "levelOneTasks": [
-          {
-            "id": 1787503323371,
-            "name": "UAT环境安全修正",
-            "planFinishDate": "",
-            "actualFinishDate": "",
-            "progress": 99,
-            "open": false,
-            "levelTwoTasks": [
-              {
-                "id": 1787503323372,
-                "name": "UAT环境安全修正",
-                "planFinishDate": "2026-08-11",
-                "actualFinishDate": "2026-09-11",
-                "progress": 99
-              }
-            ],
-            "autoPlanDate": true,
-            "autoActualDate": true
-          },
           {
             "id": 1787503323373,
             "name": "高危及以上问题分析处理",
@@ -1139,7 +1120,7 @@
             "name": "测试环境部署及复测",
             "planFinishDate": "",
             "actualFinishDate": "",
-            "progress": 0,
+            "progress": 50,
             "open": false,
             "levelTwoTasks": [
               {
@@ -1147,7 +1128,7 @@
                 "name": "测试环境部署及复测",
                 "planFinishDate": "2026-08-24",
                 "actualFinishDate": "2026-08-28",
-                "progress": 0
+                "progress": 50
               }
             ],
             "autoPlanDate": true,
@@ -1179,51 +1160,51 @@
         "name": "系统设计",
         "planFinishDate": "",
         "actualFinishDate": "",
-        "progress": 43,
-        "open": false,
+        "progress": 50,
+        "open": true,
         "levelOneTasks": [
           {
             "id": 1787503323382,
             "name": "原型设计",
             "planFinishDate": "2026-08-21",
             "actualFinishDate": "2026-08-25",
-            "progress": 90,
-            "open": false,
+            "progress": 97,
+            "open": true,
             "levelTwoTasks": [
               {
                 "id": 1787503323388,
                 "name": "运营看板",
                 "planFinishDate": "2026-08-21",
                 "actualFinishDate": "2026-08-25",
-                "progress": 90
+                "progress": 99
               },
               {
                 "id": 1787503323383,
                 "name": "资产管理",
                 "planFinishDate": "2026-08-21",
                 "actualFinishDate": "2026-08-25",
-                "progress": 90
+                "progress": 99
               },
               {
                 "id": 1787503323384,
                 "name": "结算管理",
                 "planFinishDate": "2026-08-21",
                 "actualFinishDate": "2026-08-25",
-                "progress": 80
+                "progress": 85
               },
               {
                 "id": 1787503323385,
                 "name": "运营监控",
                 "planFinishDate": "2026-08-21",
                 "actualFinishDate": "2026-08-25",
-                "progress": 90
+                "progress": 99
               },
               {
                 "id": 1787503323386,
                 "name": "核容测算",
                 "planFinishDate": "2026-08-21",
                 "actualFinishDate": "2026-08-25",
-                "progress": 90
+                "progress": 99
               },
               {
                 "id": 1787503323387,
@@ -1241,7 +1222,7 @@
             "name": "详细设计（数据库/API接口）",
             "planFinishDate": "2026-08-21",
             "actualFinishDate": "2026-08-28",
-            "progress": 38,
+            "progress": 52,
             "open": false,
             "levelTwoTasks": [
               {
@@ -1249,7 +1230,7 @@
                 "name": "资产管理",
                 "planFinishDate": "2026-08-21",
                 "actualFinishDate": "2026-08-28",
-                "progress": 60
+                "progress": 50
               },
               {
                 "id": 1787503323391,
@@ -1263,21 +1244,21 @@
                 "name": "运营监控",
                 "planFinishDate": "2026-08-21",
                 "actualFinishDate": "2026-08-28",
-                "progress": 20
+                "progress": 50
               },
               {
                 "id": 1787503323393,
                 "name": "核容测算",
                 "planFinishDate": "2026-08-21",
                 "actualFinishDate": "2026-08-28",
-                "progress": 20
+                "progress": 50
               },
               {
                 "id": 1787503323394,
                 "name": "运营策略",
                 "planFinishDate": "2026-08-21",
                 "actualFinishDate": "2026-08-28",
-                "progress": 20
+                "progress": 50
               },
               {
                 "id": 1787503323395,
@@ -1314,8 +1295,8 @@
       {
         "id": 1787503323398,
         "name": "三方接口开发联调",
-        "planFinishDate": "",
-        "actualFinishDate": "",
+        "planFinishDate": "2026-09-14",
+        "actualFinishDate": "2026-10-21",
         "progress": 0,
         "open": false,
         "levelOneTasks": [
@@ -1438,8 +1419,8 @@
       {
         "id": 1787503323411,
         "name": "资产管理",
-        "planFinishDate": "",
-        "actualFinishDate": "",
+        "planFinishDate": "2026-08-31",
+        "actualFinishDate": "2026-10-19",
         "progress": 0,
         "open": false,
         "levelOneTasks": [
@@ -1642,49 +1623,27 @@
             ],
             "autoPlanDate": true,
             "autoActualDate": true
-          }
-        ]
-      },
-      {
-        "id": 1787503323437,
-        "name": "资产评价",
-        "planFinishDate": "",
-        "actualFinishDate": "",
-        "progress": 0,
-        "open": false,
-        "levelOneTasks": [
-          {
-            "id": 1787503323438,
-            "name": "评价模型",
-            "planFinishDate": "",
-            "actualFinishDate": "",
-            "progress": 0,
-            "open": false,
-            "levelTwoTasks": [
-              {
-                "id": 1787503323439,
-                "name": "评价模型",
-                "planFinishDate": "2026-10-27",
-                "actualFinishDate": "2026-10-29",
-                "progress": 0
-              }
-            ],
-            "autoPlanDate": true,
-            "autoActualDate": true
           },
           {
-            "id": 1787503323440,
+            "id": 1788134412931,
             "name": "资产评价",
             "planFinishDate": "",
             "actualFinishDate": "",
             "progress": 0,
-            "open": false,
+            "open": true,
             "levelTwoTasks": [
               {
-                "id": 1787503323441,
+                "id": 1788134412933,
+                "name": "评价模型",
+                "planFinishDate": "",
+                "actualFinishDate": "",
+                "progress": 0
+              },
+              {
+                "id": 1788134412934,
                 "name": "资产评价",
-                "planFinishDate": "2026-10-30",
-                "actualFinishDate": "2026-11-04",
+                "planFinishDate": "",
+                "actualFinishDate": "",
                 "progress": 0
               }
             ],
@@ -1696,8 +1655,8 @@
       {
         "id": 1787503323442,
         "name": "结算管理",
-        "planFinishDate": "",
-        "actualFinishDate": "",
+        "planFinishDate": "2026-08-31",
+        "actualFinishDate": "2026-10-29",
         "progress": 0,
         "open": false,
         "levelOneTasks": [
@@ -1890,8 +1849,8 @@
       {
         "id": 1787503323465,
         "name": "核容测算",
-        "planFinishDate": "",
-        "actualFinishDate": "",
+        "planFinishDate": "2026-08-31",
+        "actualFinishDate": "2026-09-22",
         "progress": 0,
         "open": false,
         "levelOneTasks": [
@@ -2004,8 +1963,8 @@
       {
         "id": 1787503323478,
         "name": "运营策略",
-        "planFinishDate": "",
-        "actualFinishDate": "",
+        "planFinishDate": "2026-09-23",
+        "actualFinishDate": "2026-10-30",
         "progress": 0,
         "open": false,
         "levelOneTasks": [
@@ -2109,8 +2068,8 @@
       {
         "id": 1787503323489,
         "name": "运营监控",
-        "planFinishDate": "",
-        "actualFinishDate": "",
+        "planFinishDate": "2026-09-07",
+        "actualFinishDate": "2026-10-30",
         "progress": 0,
         "open": false,
         "levelOneTasks": [
@@ -2261,39 +2220,32 @@
       {
         "id": 1787503323506,
         "name": "运营看板-BI",
-        "planFinishDate": "",
-        "actualFinishDate": "",
-        "progress": 0,
+        "planFinishDate": "2026-08-24",
+        "actualFinishDate": "2026-11-03",
+        "progress": 13,
         "open": false,
         "levelOneTasks": [
           {
             "id": 1787503323507,
             "name": "驾驶舱可视化",
-            "planFinishDate": "",
-            "actualFinishDate": "",
-            "progress": 0,
-            "open": false,
+            "planFinishDate": "2026-09-07",
+            "actualFinishDate": "2026-09-11",
+            "progress": 25,
+            "open": true,
             "levelTwoTasks": [
-              {
-                "id": 1787503323508,
-                "name": "驾驶舱可视化",
-                "planFinishDate": "2026-08-24",
-                "actualFinishDate": "2026-09-11",
-                "progress": 0
-              },
               {
                 "id": 1787503323509,
                 "name": "集团运营看板",
                 "planFinishDate": "2026-08-24",
                 "actualFinishDate": "2026-08-28",
-                "progress": 0
+                "progress": 50
               },
               {
                 "id": 1787503323510,
                 "name": "区域运营看板",
-                "planFinishDate": "2026-08-24",
+                "planFinishDate": "2026-08-31",
                 "actualFinishDate": "2026-09-03",
-                "progress": 0
+                "progress": 50
               },
               {
                 "id": 1787503323511,
@@ -2337,10 +2289,10 @@
       {
         "id": 1787503323537,
         "name": "B端小程序开发",
-        "planFinishDate": "",
-        "actualFinishDate": "",
+        "planFinishDate": "2026-09-15",
+        "actualFinishDate": "2026-09-29",
         "progress": 27,
-        "open": true,
+        "open": false,
         "levelOneTasks": [
           {
             "id": 1787503323538,
@@ -2367,7 +2319,7 @@
             "planFinishDate": "",
             "actualFinishDate": "",
             "progress": 0,
-            "open": false,
+            "open": true,
             "levelTwoTasks": [],
             "autoPlanDate": true,
             "autoActualDate": true
@@ -2378,7 +2330,7 @@
             "planFinishDate": "",
             "actualFinishDate": "",
             "progress": 0,
-            "open": false,
+            "open": true,
             "levelTwoTasks": [],
             "autoPlanDate": true,
             "autoActualDate": true
